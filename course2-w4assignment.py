@@ -81,9 +81,10 @@ df2 = pd.merge(dfr.reset_index(), dfp.reset_index(),on="data",how='inner')
 df2.set_index("data");
 
 
-# In[125]:
+# In[154]:
 
 
+get_ipython().run_line_magic('matplotlib', 'notebook')
 pearson1 = stats.pearsonr(df2["tempmean_x"], df2["tempmean_y"])
 pearson2 = stats.pearsonr(df2["umidmean_x"], df2["umidmean_y"])
 
@@ -97,6 +98,7 @@ ax1.set(xlabel = "Mean Temperature in Recife",
        ylabel = "Mean Temperature in Petrolina")
 ax1.yaxis.label.set_size(12)
 ax1.xaxis.label.set_size(12)
+
 
 sns.despine(left=True, bottom=True, right=True)
 sns.regplot(x="umidmean_x", y="umidmean_y", data=df2, color = "tomato", ax=ax2)
@@ -113,10 +115,23 @@ plt.suptitle("Weather relationship Recife-Petrolina (2018)",
              size = 18,
                 y=0.92);
 
+
+# In[155]:
+
+
+ax1.set_yticklabels(list(map(lambda x: "${}^\circ$C".format(x.get_text()),
+                             list(ax1.get_yticklabels()))))
+ax1.set_xticklabels(list(map(lambda x: "${}^\circ$C".format(x.get_text()),
+                             list(ax1.get_xticklabels()))))
+
+ax2.set_yticklabels(list(map(lambda x: "${}\%$".format(x.get_text()),
+                             list(ax2.get_yticklabels()))))
+ax2.set_xticklabels(list(map(lambda x: "${}\%$".format(x.get_text()),
+                             list(ax2.get_xticklabels()))))
+
+
+# In[157]:
+
+
 plt.savefig("ims/assignment4.png", dpi = 200)
-
-
-# In[124]:
-
-
 
